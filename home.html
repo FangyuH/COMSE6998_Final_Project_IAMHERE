@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <style>
+      .course_child {
+        display: inline-block;
+        padding: 1rem 1rem;
+        margin: 0;
+        top: 50%;
+        
+        
+      }
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: #474e5d;
+        padding-top: 50px;
+      }
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="./home.html" style="margin-left: 20px"
+            >IAMHERE</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav"></div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a href="./setting.html" class="btn btn-outline-info" role="button" aria-pressed="true">Setting</a>
+              <a href="./logout.html" class="btn btn-outline-info" role="button" aria-pressed="true">Logout</a>  
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class='parent'>
+        <div class='course_child' style="margin-top: 10px; margin-left: 450px;">
+          <h1>Your Courses</h1><br/><br/>
+          <!--This should be a list, iterating courses from a loop to display-->
+          <b>COMS 6998 </b>
+          <a class="btn btn-info" style="margin-bottom: 5px; margin-left: 20px;" role="button" aria-pressed="true">Open</a><br/><br/><br/>
+          <b>COMS 4111</b>
+          <a class="btn btn-info" style="margin-bottom: 5px; margin-left: 20px;" role="button" aria-pressed="true">Open</a><br/><br/><br/>
+          <!--End of loop-->
+        </div>
+        <div class="course_child" style="margin-bottom: 5px; margin-left: 20px;">
+          <button style="margin-bottom: 10px;" onclick="document.getElementById('create').style.display='block'">Create Course</button><br/><br/><br/>
+          <div id="create" class="modal">
+            <form class="modal-content" action="/action_page.php">
+              <div class="container">
+                <h1>Create New Course</h1>
+                <input type="text" placeholder="Course ID"><br/>
+                <input type="text" placeholder="Course Name"><br/>
+                <div class="clearfix">
+                  <button type="button" onclick="document.getElementById('create').style.display='none'">Save</button>
+                  <button type="button" onclick="document.getElementById('create').style.display='none'">Exit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <button style="margin-bottom: 10px;" onclick="document.getElementById('join').style.display='block'">Join Course</button><br/><br/><br/>
+          <div id="join" class="modal">
+            <form class="modal-content" action="/action_page.php">
+              <div class="container">
+                <h1>Join New Course</h1>
+                <input type="text" placeholder="Course ID"><br/>
+                <div class="clearfix">
+                  <button type="button" onclick="document.getElementById('join').style.display='none'">Save</button>
+                  <button type="button" onclick="document.getElementById('join').style.display='none'">Exit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+  </body>
+  
