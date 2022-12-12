@@ -68,7 +68,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
               <a href="./setting.html" class="btn btn-outline-info" role="button" aria-pressed="true">Setting</a>
-              <a href="./logout.html" class="btn btn-outline-info" role="button" aria-pressed="true">Logout</a>  
+              <a href="./login.html" class="btn btn-outline-info" role="button" aria-pressed="true">Logout</a>  
             </li>
           </ul>
         </nav>
@@ -77,6 +77,7 @@
         <div id="usercourses" class='course_display'>
         <h4>Your Courses</h4><br/><br/>
         <a id="usercourses" href="./courseteacher.html" class="btn btn-info" role="button" aria-pressed="true">coursename</a><br/><br/><br/>
+        <a id="usercourses" href="./coursestudent.html" class="btn btn-info" role="button" aria-pressed="true">coursename</a><br/><br/><br/>
         </div>
         <div class="course_action" >
           <button style="margin-bottom: 10px;" onclick="document.getElementById('create').style.display='block'">Create Course</button><br/><br/><br/>
@@ -84,11 +85,11 @@
             <form class="modal-content">
               <div class="container">
                 <h1>Create New Course</h1>
-                <input type="text" placeholder="Course ID"><br/>
-                <input type="text" placeholder="Course Name"><br/>
+                <input id="courseid" type="text" placeholder="Course ID"><br/>
+                <input id="coursename" type="text" placeholder="Course Name"><br/>
                 <div class="clearfix">
-                  <button type="button" onclick="document.getElementById('create').style.display='none'">Save</button>
-                  <button type="button" onclick="document.getElementById('create').style.display='none'">Exit</button>
+                  <button type="button" onclick=createCourse()>Save</button>
+                  <button type="button" href="./home.html" onclick="document.getElementById('create').style.display='none'">Exit</button>
                 </div>
               </div>
             </form>
@@ -101,8 +102,8 @@
                 <h1>Join Course</h1>
                 <input type="text" placeholder="Course ID"><br/>
                 <div class="clearfix">
-                  <button type="button" href="./coursestudent.html" onclick="document.getElementById('join').style.display='none'">Save</button>
-                  <button type="button" onclick="document.getElementById('join').style.display='none'">Exit</button>
+                  <button type="button" onclick=addCourse()>Save</button>
+                  <button type="button" href="./home.html" onclick="document.getElementById('join').style.display='none'">Exit</button>
                 </div>
               </div>
             </form>
