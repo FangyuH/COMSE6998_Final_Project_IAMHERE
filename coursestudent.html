@@ -74,16 +74,32 @@
         <option value="time1">time1</option>
         </select>
     </div>
-    <div>
-        <div style="display: inline-block; margin-left: 130px;" id="qrcode">
-            <h4>QR Code</h4><br/>
+
+    <div class="float-container">
+
+      <div class="float-child">
+        <div style="text-align: center;" id="qrcode" >
+          <h4 >QR Code</h4>
+          <div style="margin-left: 130px; margin-bottom: 50px">
+          <label for="qrCode">Upload QR code</label>
+          <input type="file" id="qrCode" name="qrCode" accept="image/*"></div>
+          <div id="qrCode_valid" class="input_valid_feedback"></div>  
         </div>
-        <div style="display: inline-block; margin-left: 430px;" id="facedetection">
-            <h4>Face Detection</h4><br/>
+      </div>
+      
+      <div class="float-child">
+        <div style="text-align: center;" id="facedetection">
+        <h4 >Face Detection</h4>
+        <div style="margin-left: 130px; margin-bottom: 50px">
+        <label for="photo">Show me your face!</label>
+        <input type="file" id="photo" name="photo" accept="image/*"></div>
+        <div id="photo_valid" class="input_valid_feedback"></div>   
         </div>
-    </div>
+      </div>
+      
+  </div>
+
     <div>
         <h4 style="text-align: center; color: red; bottom: 50px;">Check-in Started!</h4>
     </div>
   </body>
-  
