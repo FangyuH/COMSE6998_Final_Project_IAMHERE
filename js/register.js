@@ -3,12 +3,10 @@ $(document).ready(function(){
     $("#submit").click(function(){
         
         var profile = {
+                email: $("#email").val(),
                 username: $("#username").val(),
                 password: $("#password").val(),
-                firstname: $("#firstname").val(),
-                lastname: $("#lastname").val(),
                 photo: $("#photo").val(),
-
         };
         
         console.log(profile)
