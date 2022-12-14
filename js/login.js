@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $("#login").click(function(){
         var login = {
-            username: $("#username").val(),
+            username: $("#email").val(),
             password: $("#password").val(),
         };
 
@@ -14,9 +14,9 @@ $(document).ready(function(){
                 console.log('success', data);
                 $("#feedback").html(data['body'])
                 if(data['statusCode'] == 200){
-                    let username = $("#username").val();
-                    sessionStorage.setItem("username", username);
-                    console.log(sessionStorage.getItem("username"));
+                    let email = $("#email").val();
+                    sessionStorage.setItem("email", username);
+                    console.log(sessionStorage.getItem("email"));
                     setTimeout(function(){
                         window.location="home.html";
                       },3000);
