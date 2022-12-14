@@ -1,42 +1,49 @@
-function createCourse(){
-    var courseinfo = {
-        courseid: $("#courseid").val(),
-        coursename: $("#coursename").val(),
-        userid: sessionStorage.getItem("username"), //username or userid
-    };
+$(document).ready(function(){
+    $("#save").click(function(){
+        var courseinfo = {
+            courseID: $("#courseid").val(),
+            courseName: $("#coursename").val(),
+            email: sessionStorage.getItem("email"), //username or userid
+        };
 
-    $.ajax({
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(courseinfo),
-        url: "aws_createcourse_api_url",
-        success: function(data){
-            console.log(data['statusCode'], data);
-            //$("#feedback").html(data['body'])
-            if(data['statusCode'] == 200){
-                setTimeout(function(){
-                    window.location="home.html";
-                  },3000);
-            };
-        },
-        error: function(data){
-            console.log(data['statusCode'], data);
-        }
-    })
+        console.log(courseinfo);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(courseinfo),
+            url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/create_course",
+            success: function(data){
+                console.log(data['statusCode'], data);
+                //$("#feedback").html(data['body'])
+                if(data['statusCode'] == 200){
+                    setTimeout(function(){
+                        window.location="home.html";
+                    },3000);
+                };
+            },
+            error: function(data){
+                console.log(data['statusCode'], data);
+            }
+        })
     //document.getElementById('create').style.display='none'
-}
+    });
+});
 
-function addCourse(){
-    var coursetoadd = {
+/*
+function joinCourse(){
+    var coursetojoin = {
         courseid: $("#courseid").val(),
         userid: sessionStorage.getItem("username"), //username or userid
         sectionid: sectionid, //need to get sectionid
     };
 
+    console.log(courseinfo);
+
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        data: JSON.stringify(coursetoadd),
+        data: JSON.stringify(coursetojoin),
         url: "aws_joincourse_api_url",
         success: function(data){
             console.log(data['statusCode'], data);
@@ -53,3 +60,4 @@ function addCourse(){
     })
     //document.getElementById('create').style.display='none'
 }
+*/
