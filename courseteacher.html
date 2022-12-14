@@ -134,14 +134,13 @@
             // Specify an onclick function
             // for the generate button
             $('#generate').click(function () {
+              function success(pos) {
+                const crd = pos.coords;
 
-                // Generate the link that would be
-                // used to generate the QR Code
-                // with the given data
-                //checkincode needs to be sent to backend for checking
-                var teacherinfo = {
-                    'course_name': "test"
-                };
+                console.log('Your current position is:');
+                console.log(`Latitude : ${crd.latitude}`);
+                console.log(`Longitude: ${crd.longitude}`);
+                console.log(`More or less ${crd.accuracy} meters.`);
                 $.ajax({
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
@@ -149,22 +148,38 @@
                     // data: JSON.stringify([{
                     //     course_name: "321"
                     // }]),
-                    data: JSON.stringify({course_name: 'test'}),
+                    data: JSON.stringify({course_name: 'test', lat: crd.latitude, long: crd.longitude}),
                     url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/teacher/generate_qr",
                     success: function(data){
                         console.log('success')
-                        console.log(data);
+                        console.log('data:',data);
                         let str = data['body'].split("#")
                         console.log(str)
                         let finalURL =
                         'https://chart.googleapis.com/chart?cht=qr&chl=' + str[0]+ "!" + str[1] + '&chs=160x160&chld=L|0'
-                        console.log(finalURL)
+                        //console.log(finalURL)
 
                         // Replace the src of the image with
                         // the QR code image
                         $('.qr-code').attr('src', finalURL);
-                            }
-                })
+                      }
+                });
+              }
+
+              function error(err) {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+              }
+              
+              navigator.geolocation.getCurrentPosition(success, error);
+              
+              
+
+                // Generate the link that would be
+                // used to generate the QR Code
+                // with the given data
+                //checkincode needs to be sent to backend for checking
+                
+
                 
             });
             });
