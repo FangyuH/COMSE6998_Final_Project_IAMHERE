@@ -4,12 +4,14 @@ $(document).ready(function(){
             email: $("#email").val(),
             password: $("#password").val(),
         };
-
+        
+        console.log(login);
+        
         $.ajax({
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(login),
-            url: "aws_login_api_url",
+            url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/login",
             success: function(data){
                 console.log('success', data);
                 $("#feedback").html(data['body'])
