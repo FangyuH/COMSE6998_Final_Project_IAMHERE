@@ -9,7 +9,7 @@ $(document).ready(function(){
         
         $.ajax({
             type: "POST",
-            contentType: "application/json",
+            contentType: "application/json; charset=utf-8",
             data: JSON.stringify(login),
             url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/login",
             success: function(data){
