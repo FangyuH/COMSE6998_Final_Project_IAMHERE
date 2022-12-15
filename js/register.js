@@ -15,7 +15,7 @@ $(document).ready(function(){
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(profile),
-            url: "aws_register_api_url",
+            url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/user/create_user",
             success: function(data){
                 console.log('success', data);
                 $("#feedback").html(data['body'])
