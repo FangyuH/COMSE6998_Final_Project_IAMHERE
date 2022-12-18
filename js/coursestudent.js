@@ -101,7 +101,7 @@ function sendface(){
         //     course_name: "321"
         // }]),
         data: JSON.stringify({userid: email, "course_name": course_name, "bucket_name": bucket, "image_name": image}),
-        url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/student/checkin_face",
+        url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/student/checkin_face",
         success: function(data){
             console.log('success:',data)
             if(data['status'] == 200){
