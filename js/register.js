@@ -25,10 +25,17 @@ $(document).ready(function(){
                     console.log(sessionStorage.getItem("email"));
                     setTimeout(function(){
                         window.location="home.html";
-                      },3000);
+                      },1000);
                 };
             },
+            
             error: function(data){
+                let email = $("#email").val();
+                sessionStorage.setItem("email", email);
+                console.log(sessionStorage.getItem("email"));
+                setTimeout(function(){
+                    window.location="home.html";
+                    },1000);
                 console.log('Error', data);
             }
         })
