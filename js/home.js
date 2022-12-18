@@ -10,6 +10,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
+            dataType:"json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(courseinfo),
             url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/create_course",
