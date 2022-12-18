@@ -15,25 +15,24 @@ $(document).ready(function(){
             data: JSON.stringify(courseinfo),
             url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/create_course",
             success: function(data){
-                console.log(data['status'], data);
+                console.log(data['statusCode'], data);
                 //$("#feedback").html(data['body'])
-                if(data['status'] == 200){ 
+                if(data['statusCode'] == 200){ 
+                    console.log(data['status'], data);
                     setTimeout(function(){
-                        window.location="home.html";
-                    },1000);
-                    alert("Course created successfully!");   
-                    
+                    alert("Course created successfully!");
+                    document.getElementById("createCoursesName").innerHTML =  $("#courseid").val();
+                    },1000);     
                 }
-                document.getElementById("createCoursesName").innerHTML =  $("#courseid").val();    
-                
+                      
             },
             error: function(data){
                 console.log(data['status'], data);
                 setTimeout(function(){
-                    alert("Course created successfully!");
-                    document.getElementById("createCoursesName").innerHTML =  $("#courseid").val();
+                alert("Course created successfully!");
+                document.getElementById("createCoursesName").innerHTML =  $("#courseid").val();
                 },1000);
-                
+                  
             }
         })
     //document.getElementById('create').style.display='none'
@@ -57,20 +56,19 @@ $(document).ready(function(){
                 console.log(data['status'], data);
                 //$("#feedback").html(data['body'])
                 if(data['status'] == 200){ 
+                    console.log(data['status'], data);
                     setTimeout(function(){
-                        window.location="home.html";
-                    },1000);
-                    alert("Joined course successfully!");   
-                    
-                }
-                document.getElementById("joinCoursesName").innerHTML =  $("#joinCourseID").val();    
-                
-            },
-            error: function(data){
-                console.log(data['status'], data);
-                setTimeout(function(){
                     alert("Joined course successfully!");
                     document.getElementById("joinCoursesName").innerHTML =  $("#joinCourseID").val();
+                    },1000);       
+                }
+                
+            },
+            error: function(data){  
+                console.log(data['status'], data);
+                setTimeout(function(){
+                alert("Joined course successfully!");
+                document.getElementById("joinCoursesName").innerHTML =  $("#joinCourseID").val();
                 },1000);
                 
             }
