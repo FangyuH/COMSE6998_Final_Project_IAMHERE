@@ -1,22 +1,24 @@
 $(document).ready(function(){
     $("#login").click(function(){
         var login = {
-            username: $("#username").val(),
+            email: $("#email").val(),
             password: $("#password").val(),
         };
-
+        
+        console.log(login);
+        
         $.ajax({
             type: "POST",
-            contentType: "application/json",
+            contentType: "application/json; charset=utf-8",
             data: JSON.stringify(login),
-            url: "aws_login_api_url",
+            url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/login",
             success: function(data){
                 console.log('success', data);
                 $("#feedback").html(data['body'])
                 if(data['statusCode'] == 200){
-                    let username = $("#username").val();
-                    sessionStorage.setItem("username", username);
-                    console.log(sessionStorage.getItem("username"));
+                    let email = $("#email").val();
+                    sessionStorage.setItem("email", email);
+                    console.log(sessionStorage.getItem("email"));
                     setTimeout(function(){
                         window.location="home.html";
                       },3000);

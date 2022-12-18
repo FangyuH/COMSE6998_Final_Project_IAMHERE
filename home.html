@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="css/main.css">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,14 +14,19 @@
       rel="stylesheet"
       href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     />
+    <script src="js/home.js"></script>
     <style>
-      .course_child {
+      .course_display {
         display: inline-block;
         padding: 1rem 1rem;
-        margin: 0;
-        top: 50%;
-        
-        
+        margin-top: 50px;
+        margin-left: 200px;
+      }
+      .course_action {
+        display: inline-block;
+        padding: 1rem 1rem;
+        margin-top: 50px;
+        margin-left: 300px;
       }
       .modal {
         display: none; /* Hidden by default */
@@ -62,33 +68,28 @@
           <div class="collapse navbar-collapse" id="navbarNav"></div>
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-              <a href="./setting.html" class="btn btn-outline-info" role="button" aria-pressed="true">Setting</a>
-              <a href="./logout.html" class="btn btn-outline-info" role="button" aria-pressed="true">Logout</a>  
+              <a href="./login.html" class="btn btn-outline-info" role="button" aria-pressed="true">Logout</a>  
             </li>
           </ul>
         </nav>
       </div>
       <div class='parent'>
-        <div class='course_child' style="margin-top: 10px; margin-left: 450px;">
-          <h1>Your Courses</h1><br/><br/>
-          <!--This should be a list, iterating courses from a loop to display-->
-          <b>COMS 6998 </b>
-          <a class="btn btn-info" style="margin-bottom: 5px; margin-left: 20px;" role="button" aria-pressed="true">Open</a><br/><br/><br/>
-          <b>COMS 4111</b>
-          <a class="btn btn-info" style="margin-bottom: 5px; margin-left: 20px;" role="button" aria-pressed="true">Open</a><br/><br/><br/>
-          <!--End of loop-->
+        <div id="usercourses" class='course_display'>
+        <h4>Your Courses</h4><br/><br/>
+        <a id="usercourses" href="./courseteacher.html" class="btn btn-info" role="button" aria-pressed="true">coursename</a><br/><br/><br/>
+        <a id="usercourses" href="./coursestudent.html" class="btn btn-info" role="button" aria-pressed="true">coursename</a><br/><br/><br/>
         </div>
-        <div class="course_child" style="margin-bottom: 5px; margin-left: 20px;">
+        <div class="course_action" >
           <button style="margin-bottom: 10px;" onclick="document.getElementById('create').style.display='block'">Create Course</button><br/><br/><br/>
           <div id="create" class="modal">
-            <form class="modal-content" action="/action_page.php">
+            <form class="modal-content">
               <div class="container">
                 <h1>Create New Course</h1>
-                <input type="text" placeholder="Course ID"><br/>
-                <input type="text" placeholder="Course Name"><br/>
+                <input id="courseid" type="text" placeholder="Course ID"><br/>
+                <input id="coursename" type="text" placeholder="Course Name"><br/>
                 <div class="clearfix">
-                  <button type="button" onclick="document.getElementById('create').style.display='none'">Save</button>
-                  <button type="button" onclick="document.getElementById('create').style.display='none'">Exit</button>
+                  <button id = "save" type="button">Save</button>
+                  <button type="button" href="./home.html" onclick="document.getElementById('create').style.display='none'">Exit</button>
                 </div>
               </div>
             </form>
@@ -96,13 +97,13 @@
 
           <button style="margin-bottom: 10px;" onclick="document.getElementById('join').style.display='block'">Join Course</button><br/><br/><br/>
           <div id="join" class="modal">
-            <form class="modal-content" action="/action_page.php">
+            <form class="modal-content">
               <div class="container">
-                <h1>Join New Course</h1>
+                <h1>Join Course</h1>
                 <input type="text" placeholder="Course ID"><br/>
                 <div class="clearfix">
-                  <button type="button" onclick="document.getElementById('join').style.display='none'">Save</button>
-                  <button type="button" onclick="document.getElementById('join').style.display='none'">Exit</button>
+                  <button type="button" onclick=joinCourse()>Save</button>
+                  <button type="button" href="./home.html" onclick="document.getElementById('join').style.display='none'">Exit</button>
                 </div>
               </div>
             </form>

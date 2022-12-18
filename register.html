@@ -51,7 +51,12 @@
         <form>
           <div class="form-row" style="margin-top: 10px; margin-left: 480px;">
             <div class="form-group col-md-5 bottom_margin_10">
-              <input type="text" class="form-control" id="username" placeholder="Email">
+              <input type="text" class="form-control" id="email" placeholder="Email">
+              <div id="email_valid" class="input_valid_feedback"></div>
+            </div>
+
+            <div class="form-group col-md-5 bottom_margin_10">
+              <input type="text" class="form-control" id="username" placeholder="Username">
               <div id="username_valid" class="input_valid_feedback"></div>
             </div>
 
@@ -65,16 +70,6 @@
               <div id="confirm_password_valid" class="input_valid_feedback"></div>
             </div>
 
-            <div class="form-group col-md-5 bottom_margin_10">
-              <input type="text" class="form-control" id="firstname" placeholder="First Name">
-            <div id="first_name_valid" class="input_valid_feedback"></div>
-            </div>
-
-            <div class="form-group col-md-5 bottom_margin_10">
-              <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-            <div id="last_name_valid" class="input_valid_feedback"></div>
-            </div>
-
             <div class="form-group col-md-9 bottom_margin_10">
               <label for="photo">Show me your face!</label>
               <input type="file" id="photo" name="photo" accept="image/*">
@@ -85,7 +80,7 @@
         
 
         <div class="form-row" style="margin-top: 15px; margin-left: 120px;">
-          <button id="submit" type="submit" class="btn btn-info">Register</button>
+          <button id="submit" type="button" class="btn btn-info">Register!</button>
         </div>
         
         <div id="feedback"></div>

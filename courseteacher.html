@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/main.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+    <script src="js/courseteacher.js"></script>
+    <style>
+    .qr-code {
+      max-width: 200px;
+      margin: 10px;
+    }
+    .float-container {
+        
+        padding: 20px;
+    }
+
+    .float-child {
+        width: 50%;
+        float: left;
+        padding: 20px;
+        margin:auto;
+        
+    } 
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: #474e5d;
+        padding-top: 50px;
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="./home.html" style="margin-left: 20px"
+            >IAMHERE</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav"></div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a href="./login.html" class="btn btn-outline-info" role="button" aria-pressed="true">Logout</a>
+              <a href="./home.html" class="btn btn-outline-info" role="button" aria-pressed="true">Go Back</a>   
+            </li>
+          </ul>
+        </nav>
+    </div>
+    <div style="margin-left: 100px;margin-top: 30px;">
+        <h4 style="display: inline-block;" id="current_course">CourseName</h4>
+        <select style="display: inline-block;" id="course_session">
+        <option value="time1">time1</option>
+        </select>
+    </div>
+    
+    <div class="float-container">
+
+        <div class="float-child">
+            <div class="container-fluid">
+                <div class="text-center">
+            
+                <!-- Get a Placeholder image initially,
+                this will change according to the
+                data entered later -->
+                <img src=
+                "https://chart.googleapis.com/chart?cht=qr&chl=Hi&chs=160x160&chld=L|0"
+                    class="qr-code img-thumbnail img-responsive" />
+                </div>
+                <div class="form-group">
+                    <div style="text-align: center; margin-left: 42px;" class="col-sm-offset-2 col-sm-10">
+            
+                    <!-- Button to generate QR Code for
+                    the entered data -->
+                    <button type="button" class="btn btn-outline-info" id="generate">
+                        Generate
+                    </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script src=
+            "https://code.jquery.com/jquery-3.5.1.js">
+        </script>
+        
+
+        
+        <script>
+            // Function to HTML encode the text
+            // This creates a new hidden element,
+            // inserts the given text into it
+            // and outputs it out as HTML
+            function htmlEncode(value) {
+            return $('<div/>').text(value)
+                .html();
+            }
+
+            $(function () {
+
+            // Specify an onclick function
+            // for the generate button
+            $('#generate').click(function () {
+              function success(pos) {
+                const crd = pos.coords;
+
+                console.log('Your current position is:');
+                console.log(`Latitude : ${crd.latitude}`);
+                console.log(`Longitude: ${crd.longitude}`);
+                console.log(`More or less ${crd.accuracy} meters.`);
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    // data: JSON.stringify([{
+                    //     course_name: "321"
+                    // }]),
+                    data: JSON.stringify({course_name: 'test', lat: crd.latitude, long: crd.longitude}),
+                    url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/teacher/generate_qr",
+                    success: function(data){
+                        console.log('success')
+                        console.log('data:',data);
+                        let str = data['body'].split("#")
+                        console.log(str)
+                        let finalURL =
+                        'https://chart.googleapis.com/chart?cht=qr&chl=' + str[0]+ "!" + str[1] + '&chs=160x160&chld=L|0'
+                        //console.log(finalURL)
+
+                        // Replace the src of the image with
+                        // the QR code image
+                        $('.qr-code').attr('src', finalURL);
+                      }
+                });
+              }
+
+              function error(err) {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+              }
+              
+              navigator.geolocation.getCurrentPosition(success, error);
+              
+              
+
+                // Generate the link that would be
+                // used to generate the QR Code
+                // with the given data
+                //checkincode needs to be sent to backend for checking
+                
+
+                
+            });
+            });
+        </script>
+      
+        <div class="float-child">
+          <div style="text-align: center;" id="facedetection">
+          <button id="showpie" onclick="getPie()">Show Pie Chart</button>
+          <div id="piechart" style="margin: auto; width: 200px; height: 400px; text-align: center;"></div>
+          <button id="detail" onclick="getCheckinDetail()">Check-in Detail</button>
+          
+          </div>
+        </div>
+        <table id="checkin_table" style="display:none;" width="100%"></table>
+        
+    </div>
+  </body>
+
+</html>
