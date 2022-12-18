@@ -15,6 +15,17 @@
       href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     />
     <script src="js/register.js"></script>
+    <script type="text/javascript" src="js/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="js/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="js/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="js/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="js/apigClient.js"></script>
   </head>
   <body>
     <div class="container">
@@ -72,7 +83,9 @@
 
             <div class="form-group col-md-9 bottom_margin_10">
               <label for="photo">Show me your face!</label>
-              <input type="file" id="photo" name="photo" accept="image/*">
+              <form action="/action_page.php">
+                <input type="file" id="upload_face">
+              </form>
             <div id="photo_valid" class="input_valid_feedback"></div>
             </div>
           
@@ -80,7 +93,7 @@
         
 
         <div class="form-row" style="margin-top: 15px; margin-left: 120px;">
-          <button id="submit" type="button" class="btn btn-info">Register!</button>
+          <button id="submit" onclick=register() type="button" class="btn btn-info">Register!</button>
         </div>
         
         <div id="feedback"></div>
