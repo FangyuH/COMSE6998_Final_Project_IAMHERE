@@ -85,17 +85,19 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            dataType:"json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(courseinfo),
-            url: "get course listhttps://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/getenrolledcourse",
+            dataType:"json",
+            data: JSON.stringify({email: sessionStorage.getItem("email")}),
+            url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/getenrolledcourse",
             success: function(data){
-                console.log("success response:", data);
+                console.log("success response:", JSON.parse(data['body']));
+                console.log("length:", JSON.parse(data['body']).length);
+                data = JSON.parse(data['body']);
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);
-                    if (data[i][courseRole]=='teacher'){
+                    if (data[i]["courseRole"]=='teacher'){
                         var btn = document.createElement("button");
-                        btn.innerHTML = data[i];
+                        btn.innerHTML = data[i]['courseName'];
                         document.getElementById("create_course").appendChild(btn); 
                     }    
                 }
@@ -125,10 +127,10 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            dataType:"json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(courseinfo),
-            url: "get course listhttps://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/getenrolledcourse",
+            dataType:"json",
+            data: JSON.stringify({email: sessionStorage.getItem("email")}),
+            url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/getenrolledcourse",
             success: function(data){
                 console.log("success response:", data);
                 for (var i = 0; i < data.length; i++) {
@@ -151,7 +153,7 @@ $(document).ready(function(){
                     } 
                 }
             }
-        })
+        });
     });
 
     var coursecontainer = document.getElementById("create_course");
@@ -160,19 +162,22 @@ $(document).ready(function(){
             console.log("child course:",coursecontainer.children[i]);
             coursecontainer.children[i].onclick = function(){
                 sessionStorage.setItem("current_create_course",coursecontainer.children[i]);
+                console.log('jump');
                 window.location.href = "./courseteacher.html";
+                console.log('jump finished');
             }
         }
     }
 
     var joincoursecontainer = document.getElementById("join_course");
     if (joincoursecontainer.children.length > 0){
+        console.log('children',joincoursecontainer.children.length);
         for (var i = 0; i < joincoursecontainer.children.length; i++) {
             console.log("child course:",joincoursecontainer.children[i]);
-            joincoursecontainer.children[i].onclick = function(){
-                sessionStorage.setItem("current_join_course",joincoursecontainer.children[i]);
+            joincoursecontainer.children[i].addEventListener('click', function (event){
+                sessionStorage.setItem("current_join_course",event.currentTarget);
                 window.location.href = "./coursestudent.html";
-            }
+            });      
         }
     }
 });
