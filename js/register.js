@@ -63,7 +63,7 @@ function register(){
 
         var params = {
             "folder":"lixuanyanghw2",
-            "item": userid,
+            "item": userid + '.jpg',
             "Content-Type":file.type,
             'x-amz-meta-customLabels':'custom_labels.value'
             //'Access-Control-Allow-Origin':"*"

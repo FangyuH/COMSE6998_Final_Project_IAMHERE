@@ -2,7 +2,7 @@ function getPie(){
     var container = document.getElementById('piechart');
     anychart.onDocumentReady(function() {
         var classinfo = {
-            course_name: "test",
+            course_name: sessionStorage.getItem('current_create_course'),
             userid: sessionStorage.getItem("userid")
         };
 
@@ -52,7 +52,7 @@ function getPie(){
 
 function getCheckinDetail(){
     var classinfo = {
-        course_name: "test",
+        course_name: sessionStorage.getItem('current_create_course'),
         userid: sessionStorage.getItem("userid")
     };
 

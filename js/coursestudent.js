@@ -86,7 +86,7 @@ function sendface(){
     }
 
     var email = sessionStorage.getItem('email');
-    var course_name = 'test';
+    var course_name = sessionStorage.getItem('current_join_course');
     var bucket = 'lixuanyanghw2';
     var image = fileName;
 

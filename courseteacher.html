@@ -148,7 +148,7 @@
                     // data: JSON.stringify([{
                     //     course_name: "321"
                     // }]),
-                    data: JSON.stringify({course_name: sessionStorage.getItem("createCourse"), lat: crd.latitude, long: crd.longitude}),
+                    data: JSON.stringify({course_name: sessionStorage.getItem("current_create_course"), lat: crd.latitude, long: crd.longitude}),
                     url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/teacher/generate_qr",
                     success: function(data){
                         console.log('success')
