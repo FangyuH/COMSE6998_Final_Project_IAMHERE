@@ -27,17 +27,12 @@ $(document).ready(function(){
                     alert("Wrong password");
                 };
             },
-            error: function(data){
-                if (data['status'] != 200) {
-                    alert('Wong password');
-
-                } else {    
-                    let email = $("#email").val();
-                    sessionStorage.setItem("email", email);
-                    setTimeout(function(){
-                    window.location="home.html";
-                    },1000);
-                };
+            error: function(data){     
+                let email = $("#email").val();
+                sessionStorage.setItem("email", email);
+                setTimeout(function(){
+                window.location="home.html";
+                },1000);   
             }
         })
     });
