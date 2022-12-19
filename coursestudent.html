@@ -84,8 +84,7 @@
     </div>
     <div class="course_display">
         <h4 style="display: inline-block;" id="current_course">CourseName</h4>
-        <select style="display: inline-block;" id="course_session">
-        <option value="time1">time1</option>
+        <script>document.getElementById('current_course').innerHTML='COURSE ID: '+sessionStorage.getItem('current_join_course')</script>
         </select>
     </div>
 

@@ -12,31 +12,33 @@ $(document).ready(function(){
             type: "POST",
             dataType:"json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(courseinfo),
+            data: JSON.stringify({
+                courseID: $("#courseid").val(),
+                courseName: $("#coursename").val(),
+                email: sessionStorage.getItem("email"), //username or userid
+            }),
             url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/create_course",
             success: function(data){
-                console.log(data['statusCode'], data);
+                console.log('success response:', data);
                 //$("#feedback").html(data['body'])
                 if(data['statusCode'] == 200){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
                     alert("Course created successfully!");
-                    document.getElementById("createCoursesName").innerHTML =  $("#courseid").val();
                     },1000);     
                 }
                       
             },
             error: function(data){
-                console.log(data['status'], data);
+                console.log("error response", data);
                 setTimeout(function(){
                 alert("Course created successfully!");
-                document.getElementById("createCoursesName").innerHTML =  $("#courseid").val();
                 },1000);
                   
             }
-        })
+        });
     //document.getElementById('create').style.display='none'
-    });
+    })
 
     $("#joinSave").click(function(){
         var courseinfo = {
@@ -50,30 +52,31 @@ $(document).ready(function(){
             type: "POST",
             dataType:"json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(courseinfo),
+            data: JSON.stringify({
+                courseID: $("#joinCourseID").val(),
+                email: sessionStorage.getItem("email"), //username or userid
+            }),
             url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/join_course",
             success: function(data){
-                console.log(data['status'], data);
+                console.log("success response:", data);
                 //$("#feedback").html(data['body'])
                 if(data['status'] == 200){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
                     alert("Joined course successfully!");
-                    document.getElementById("joinCoursesName").innerHTML =  $("#joinCourseID").val();
                     },1000);       
                 }
                 
             },
             error: function(data){  
-                console.log(data['status'], data);
+                console.log("error response:", data);
                 setTimeout(function(){
                 alert("Joined course successfully!");
-                document.getElementById("joinCoursesName").innerHTML =  $("#joinCourseID").val();
                 },1000);
                 
             }
         })
-    });
+    })
 
 
     $("#getCreate").click(function(){
@@ -104,18 +107,20 @@ $(document).ready(function(){
             },
             error: function(data){
                 console.log("error response:", data);
+                console.log("length:", JSON.parse(data['body']).length);
+                data = JSON.parse(data['body']);
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);
-                    if (data[i][courseRole]=='teacher'){
+                    if (data[i]['courseRole']=='teacher'){
                         var btn = document.createElement("button");
-                        btn.innerHTML = data[i];
+                        btn.innerHTML = data[i]['courseName'];
                         document.getElementById("create_course").appendChild(btn); 
                     } 
                 }
                 
             }
-        })
-    });
+        });
+    })
 
 
     $("#getJoin").click(function(){
@@ -133,51 +138,60 @@ $(document).ready(function(){
             url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/getenrolledcourse",
             success: function(data){
                 console.log("success response:", data);
+                console.log("length:", JSON.parse(data['body']).length);
+                data = JSON.parse(data['body']);
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);
-                    if (data[i][courseRole]=='student'){
+                    if (data[i]['courseRole']=='student'){
                         var btn = document.createElement("button");
-                        btn.innerHTML = data[i];
+                        btn.innerHTML = data[i]['courseName'];
                         document.getElementById("join_course").appendChild(btn); 
                     }    
                 }
             },
             error: function(data){
                 console.log("error response:", data);
+                console.log("length:", JSON.parse(data['body']).length);
+                data = JSON.parse(data['body']);
                 for (var i = 0; i < data.length; i++) {
                     console.log(data[i]);
-                    if (data[i][courseRole]=='student'){
+                    if (data[i]['courseRole']=='student'){
                         var btn = document.createElement("button");
-                        btn.innerHTML = data[i];
+                        btn.innerHTML = data[i]['courseName'];
                         document.getElementById("join_course").appendChild(btn); 
                     } 
                 }
             }
         });
-    });
+    })
 
-    var coursecontainer = document.getElementById("create_course");
-    if (coursecontainer.children.length > 0){
-        for (var i = 0; i < coursecontainer.children.length; i++) {
-            console.log("child course:",coursecontainer.children[i]);
-            coursecontainer.children[i].onclick = function(){
-                sessionStorage.setItem("current_create_course",coursecontainer.children[i]);
-                console.log('jump');
-                window.location.href = "./courseteacher.html";
-                console.log('jump finished');
+    document.getElementById('getCreate').onclick = function(event){
+        console.log("start checking create...");
+        setTimeout(() => {
+            for (var i = 0; i < document.getElementById('create_course').children.length; i++) {
+                console.log("child course btn:",document.getElementById('create_course').children[i]);
+                document.getElementById('create_course').children[i].onclick = function(event){
+                    console.log('courseid:',event.currentTarget);
+                    sessionStorage.setItem("current_create_course",event.currentTarget.innerHTML);
+                    window.location.href = "./courseteacher.html";
+                }
             }
-        }
+        }, 2000);
+    }
+    
+
+    document.getElementById('getJoin').onclick = function(event){
+        console.log("start checking join...");
+        setTimeout(() => {
+            for (var i = 0; i < document.getElementById('join_course').children.length; i++) {
+                console.log("child course btn:",document.getElementById('join_course').children[i]);
+                document.getElementById('join_course').children[i].onclick = function(event){
+                    console.log('courseid:',event.currentTarget);
+                    sessionStorage.setItem("current_join_course",event.currentTarget.innerHTML);
+                    window.location.href = "./coursestudent.html";
+                }
+            }
+        }, 2000);
     }
 
-    var joincoursecontainer = document.getElementById("join_course");
-    if (joincoursecontainer.children.length > 0){
-        console.log('children',joincoursecontainer.children.length);
-        for (var i = 0; i < joincoursecontainer.children.length; i++) {
-            console.log("child course:",joincoursecontainer.children[i]);
-            joincoursecontainer.children[i].addEventListener('click', function (event){
-                sessionStorage.setItem("current_join_course",event.currentTarget);
-                window.location.href = "./coursestudent.html";
-            });      
-        }
-    }
 });

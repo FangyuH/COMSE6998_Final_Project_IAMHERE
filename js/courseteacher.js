@@ -10,7 +10,10 @@ function getPie(){
             type: "GET",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(classinfo),
+            data: JSON.stringify({
+                course_name: sessionStorage.getItem('current_create_course'),
+                userid: sessionStorage.getItem("email")
+            }),
             url: "aws-get-checkin-detail",
             success: function(data){
                 console.log('success')
@@ -60,7 +63,10 @@ function getCheckinDetail(){
         type: "GET",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(classinfo),
+        data: JSON.stringify({
+            course_name: sessionStorage.getItem('current_create_course'),
+            userid: sessionStorage.getItem("email")
+        }),
         url: "aws-get-checkin-detail",
         success: function(data){
             console.log('success')

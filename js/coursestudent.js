@@ -26,13 +26,20 @@ function sendQr(){
                 url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/student/checkin_face",
                 //url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/teacher/generate_qr",
                 success: function(data){
-                    console.log('success')
+                    console.log('success response:');
                     if(data['status'] == 200){
                         var elem = document.createElement("img");
                         elem.src = "green-check.png";
                         document.getElementById("qrCode_valid").appendChild(elem);
                     };
-
+                },
+                error: function(){
+                    console.log('error response');
+                    if(data['status'] == 200){
+                        var elem = document.createElement("img");
+                        elem.src = "green-check.png";
+                        document.getElementById("qrCode_valid").appendChild(elem);
+                    };
                 }
             });
         }
@@ -100,16 +107,24 @@ function sendface(){
         // data: JSON.stringify([{
         //     course_name: "321"
         // }]),
-        data: JSON.stringify({userid: email, "course_name": course_name, "bucket_name": bucket, "image_name": image}),
+        data: JSON.stringify({userid: email, "course_name": sessionStorage.getItem('current_join_course'), "bucket_name": bucket, "image_name": image}),
         url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/student/checkin_face",
         success: function(data){
-            console.log('success:',data)
+            console.log('success response:',data)
             if(data['status'] == 200){
                 var grncheck = document.createElement("img");
                 grncheck.src = "green-check.png";
                 document.getElementById("photo_valid").appendChild(grncheck);
             };
 
+        },
+        error: function(){
+            console.log('error response:',data)
+            if(data['status'] == 200){
+                var grncheck = document.createElement("img");
+                grncheck.src = "green-check.png";
+                document.getElementById("photo_valid").appendChild(grncheck);
+            };
         }
     });
 }, 2000);

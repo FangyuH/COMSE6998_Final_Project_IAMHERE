@@ -82,8 +82,7 @@
     </div>
     <div style="margin-left: 100px;margin-top: 30px;">
         <h4 style="display: inline-block;" id="current_course">CourseName</h4>
-        <select style="display: inline-block;" id="course_session">
-        <option value="time1">time1</option>
+        <script>document.getElementById('current_course').innerHTML='COURSE ID: '+sessionStorage.getItem('current_create_course')</script>
         </select>
     </div>
     
@@ -171,15 +170,6 @@
               }
               
               navigator.geolocation.getCurrentPosition(success, error);
-              
-              
-
-                // Generate the link that would be
-                // used to generate the QR Code
-                // with the given data
-                //checkincode needs to be sent to backend for checking
-                
-
                 
             });
             });
