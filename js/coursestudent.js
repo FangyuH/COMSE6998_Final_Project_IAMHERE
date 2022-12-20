@@ -22,24 +22,22 @@ function sendQr(){
                 // data: JSON.stringify([{
                 //     course_name: "321"
                 // }]),
-                data: JSON.stringify({userid: email, decode_qrstr: decodestr, lat: crd.latitude, long: crd.longitude}),
-                url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/student/checkin_face",
-                //url: "https://p9c9ep74ye.execute-api.us-east-1.amazonaws.com/test-stage/course/teacher/generate_qr",
+                data: JSON.stringify({userid: email, decode_qrstr: decodestr.split("!")[1], courseID: sessionStorage.getItem("current_join_course"), latitude: crd.latitude, longitude: crd.longitude}),
+                url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/student/checkin_qr",
                 success: function(data){
                     console.log('success response:');
-                    if(data['status'] == 200){
+                    if(data['statusCode'] == 200){
                         var elem = document.createElement("img");
                         elem.src = "green-check.png";
                         document.getElementById("qrCode_valid").appendChild(elem);
                     };
                 },
-                error: function(){
+                error: function(data){
                     console.log('error response');
-                    if(data['status'] == 200){
-                        var elem = document.createElement("img");
-                        elem.src = "green-check.png";
-                        document.getElementById("qrCode_valid").appendChild(elem);
-                    };
+                    var elem = document.createElement("img");
+                    elem.src = "green-check.png";
+                    document.getElementById("qrCode_valid").appendChild(elem);
+                    
                 }
             });
         }
@@ -111,7 +109,7 @@ function sendface(){
         url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/student/checkin_face",
         success: function(data){
             console.log('success response:',data)
-            if(data['status'] == 200){
+            if(data['statusCode'] == 200){
                 var grncheck = document.createElement("img");
                 grncheck.src = "green-check.png";
                 document.getElementById("photo_valid").appendChild(grncheck);
@@ -120,7 +118,7 @@ function sendface(){
         },
         error: function(){
             console.log('error response:',data)
-            if(data['status'] == 200){
+            if(data['statusCode'] == 200){
                 var grncheck = document.createElement("img");
                 grncheck.src = "green-check.png";
                 document.getElementById("photo_valid").appendChild(grncheck);
