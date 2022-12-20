@@ -22,10 +22,7 @@ $(document).ready(function(){
                 console.log('success response:', data);
                 //$("#feedback").html(data['body'])
                 if(data['statusCode'] == 200){ 
-                    console.log(data['status'], data);
-                    setTimeout(function(){
-                    alert("Course created successfully!");
-                    },1000);     
+                    alert("Course created successfully!");   
                 }
                       
             },
