@@ -117,7 +117,17 @@ function register(){
                     window.location="home.html";
                 },1000);
             };
+        },
+        error: function(data){
+            let email = $("#email").val();
+            sessionStorage.setItem("email", email);
+            console.log(sessionStorage.getItem("email"));
+            setTimeout(function(){
+                window.location="home.html";
+                },1000);
+            console.log('Error', data);
         }
+
     });
-}, 2000);
+}, 1000);
 }
