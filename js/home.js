@@ -57,7 +57,7 @@ $(document).ready(function(){
             success: function(data){
                 console.log("success response:", data);
                 //$("#feedback").html(data['body'])
-                if(data['status'] == 200){ 
+                if(data['statusCode'] == 200){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
                     alert("Joined course successfully!");
