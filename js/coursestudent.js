@@ -28,14 +28,14 @@ function sendQr(){
                     console.log('success response:');
                     if(data['statusCode'] == 200){
                         var elem = document.createElement("img");
-                        elem.src = "green-check.png";
+                        elem.src = "js/green-check.png";
                         document.getElementById("qrCode_valid").appendChild(elem);
                     };
                 },
                 error: function(data){
                     console.log('error response');
                     var elem = document.createElement("img");
-                    elem.src = "green-check.png";
+                    elem.src = "js/green-check.png";
                     document.getElementById("qrCode_valid").appendChild(elem);
                     
                 }
@@ -111,7 +111,7 @@ function sendface(){
             console.log('success response:',data)
             if(data['statusCode'] == 200){
                 var grncheck = document.createElement("img");
-                grncheck.src = "green-check.png";
+                grncheck.src = "js/green-check.png";
                 document.getElementById("photo_valid").appendChild(grncheck);
             };
 
@@ -120,7 +120,7 @@ function sendface(){
             console.log('error response:',data)
             if(data['statusCode'] == 200){
                 var grncheck = document.createElement("img");
-                grncheck.src = "green-check.png";
+                grncheck.src = "js/green-check.png";
                 document.getElementById("photo_valid").appendChild(grncheck);
             };
         }
