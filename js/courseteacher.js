@@ -13,9 +13,17 @@ function getPie(){
             data = JSON.parse(data['body']);
             console.log("after parse",data);
             // format the data obtained as the following
+            var dataLen = data.length
+            var checked = 0;
+            for(var i =0; i< dataLen; i++){
+                if(data[i]['checkedIn']){
+                    checked++;
+                }
+            }
+
             var chartData = [
-                {x: "CheckIn", value: 13},
-                {x: "NotCheckIn", value: 10},
+                {x: "CheckIn", value: checked},
+                {x: "NotCheckIn", value: dataLen-checked},
             ];
             
             // create the chart
