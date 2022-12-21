@@ -17,7 +17,6 @@
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="js/courseteacher.js"></script>
-    <script src="qrcodejs-master/qrcode.min.js"></script>
     <style>
     .qr-code {
       max-width: 200px;
@@ -91,26 +90,96 @@
 
         <div class="float-child">
             <div class="container-fluid">
-                <div id='qrcode' class="text-center"></div>
+                <div class="text-center">
+            
+                <!-- Get a Placeholder image initially,
+                this will change according to the
+                data entered later -->
+                <img src=
+                "https://chart.googleapis.com/chart?cht=qr&chl=Hi&chs=160x160&chld=L|0"
+                    class="qr-code img-thumbnail img-responsive" />
+                </div>
                 <div class="form-group">
                     <div style="text-align: center; margin-left: 42px;" class="col-sm-offset-2 col-sm-10">
             
                     <!-- Button to generate QR Code for
                     the entered data -->
-                    <button onclick="generate_qr()" type="button" class="btn btn-outline-info" id="generate">
-                        Generate QR Code
+                    <button type="button" class="btn btn-outline-info" id="generate">
+                        Generate
                     </button>
                     </div>
                 </div>
                 
             </div>
         </div>
+        <script src=
+            "https://code.jquery.com/jquery-3.5.1.js">
+        </script>
+        
+
+        
+        <script>
+            // Function to HTML encode the text
+            // This creates a new hidden element,
+            // inserts the given text into it
+            // and outputs it out as HTML
+            function htmlEncode(value) {
+            return $('<div/>').text(value)
+                .html();
+            }
+
+            $(function () {
+
+            // Specify an onclick function
+            // for the generate button
+            $('#generate').click(function () {
+              function success(pos) {
+                const crd = pos.coords;
+
+                console.log('Your current position is:');
+                console.log(`Latitude : ${crd.latitude}`);
+                console.log(`Longitude: ${crd.longitude}`);
+                console.log(`More or less ${crd.accuracy} meters.`);
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"json",
+                    // data: JSON.stringify([{
+                    //     course_name: "321"
+                    // }]),
+                    data: JSON.stringify({course_name: sessionStorage.getItem("current_create_course"), latitude: crd.latitude, longitude: crd.longitude}),
+                    url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/teacher/generate_qr",
+                    success: function(data){
+                        console.log('success')
+                        console.log('data:',data);
+                        let str = data['body'].split("#")
+                        console.log(str)
+                        let finalURL =
+                        'https://chart.googleapis.com/chart?cht=qr&chl=' + str[0]+ "!" + str[1] + '&chs=160x160&chld=L|0'
+                        //console.log(finalURL)
+
+                        // Replace the src of the image with
+                        // the QR code image
+                        $('.qr-code').attr('src', finalURL);
+                      }
+                });
+              }
+
+              function error(err) {
+                console.warn(`ERROR(${err.code}): ${err.message}`);
+              }
+              
+              navigator.geolocation.getCurrentPosition(success, error);
+                
+            });
+            });
+        </script>
       
         <div class="float-child">
           <div style="text-align: center;" id="facedetection">
           <button id="showpie" onclick="getPie()">Show Pie Chart</button>
           <div id="piechart" style="margin: auto; width: 200px; height: 400px; text-align: center;"></div>
-          <!-- <button id="detail" onclick="getCheckinDetail()">Check-in Detail</button> -->
+          <button id="detail" onclick="getCheckinDetail()">Check-in Detail</button>
           
           </div>
         </div>
