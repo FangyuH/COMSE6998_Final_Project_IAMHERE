@@ -63,12 +63,25 @@ $(document).ready(function(){
                     alert("Joined course successfully!");
                     },1000);       
                 }
+                else if(data['statusCode'] == 401){ 
+                    console.log(data['status'], data);
+                    setTimeout(function(){
+                    alert("Joined course fialed. No such course ID exist.");
+                    },1000);       
+                }
+                else if(data['statusCode'] == 402){ 
+                    console.log(data['status'], data);
+                    setTimeout(function(){
+                    alert("Joined course fialed. Student already in this course.");
+                    },1000);       
+                }
+
                 
             },
             error: function(data){  
                 console.log("error response:", data);
                 setTimeout(function(){
-                alert("Joined course successfully!");
+                alert("Joined course failed!");
                 },1000);
                 
             }
