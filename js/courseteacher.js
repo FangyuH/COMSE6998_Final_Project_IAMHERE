@@ -107,5 +107,49 @@ function getCheckinDetail(){
 
 }
 */
-        
+function generate_qr(){
+ // Specify an onclick function
+    // for the generate button
+    
+    function success(pos) {
+    const crd = pos.coords;
 
+    console.log('Your current position is:');
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`More or less ${crd.accuracy} meters.`);
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        dataType:"json",
+        // data: JSON.stringify([{
+        //     course_name: "321"
+        // }]),
+        data: JSON.stringify({course_name: sessionStorage.getItem("current_create_course"), latitude: crd.latitude, longitude: crd.longitude}),
+        url: "https://rlofxcp9dd.execute-api.us-east-1.amazonaws.com/beta/course/teacher/generate_qr",
+        success: function(data){
+            console.log('success')
+            console.log('data:',data);
+            let str = data['body'].split("#")
+            console.log(str)
+            //let finalURL =
+            //'https://chart.googleapis.com/chart?cht=qr&chl=' + str[0]+ "!" + str[1] + '&chs=160x160&chld=L|0'
+            //console.log(finalURL)
+
+            // Replace the src of the image with
+            // the QR code image
+            let newqr = new QRCode(document.getElementById("qrcode"), str[0]+ "!" + str[1]);
+            console.log('newqr:',newqr);
+            //$('.qr-code').attr('src', finalURL);
+            }
+    });
+    }
+
+    function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    
+    navigator.geolocation.getCurrentPosition(success, error);
+    
+
+}
