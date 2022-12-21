@@ -72,13 +72,13 @@ $(document).ready(function(){
                 else if(data['statusCode'] == 402){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
-                    alert("Joined course fialed. User cannot join the course they created.");
+                    alert("Joined course failed. User cannot join the course they created.");
                     },1000);       
                 }
                 else if(data['statusCode'] == 403){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
-                    alert("Joined course fialed. User is already in this course.");
+                    alert("Joined course failed. User is already in this course.");
                     },1000);       
                 }
 
