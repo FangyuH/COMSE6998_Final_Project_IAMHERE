@@ -75,7 +75,7 @@ $(document).ready(function(){
                     alert("Joined course failed. User cannot join the course they created.");
                     },1000);       
                 }
-                else if(data['statusCode'] == 403){ 
+                else if(data['statusCode'] == 405){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
                     alert("Joined course failed. User is already in this course.");
