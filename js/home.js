@@ -66,13 +66,19 @@ $(document).ready(function(){
                 else if(data['statusCode'] == 401){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
-                    alert("Joined course fialed. No such course ID exist.");
+                    alert("Joined course failed. No such course ID exist.");
                     },1000);       
                 }
                 else if(data['statusCode'] == 402){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
-                    alert("Joined course fialed. Student already in this course.");
+                    alert("Joined course fialed. User cannot join the course they created.");
+                    },1000);       
+                }
+                else if(data['statusCode'] == 403){ 
+                    console.log(data['status'], data);
+                    setTimeout(function(){
+                    alert("Joined course fialed. User is already in this course.");
                     },1000);       
                 }
 
