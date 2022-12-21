@@ -63,8 +63,6 @@ $(document).ready(function(){
                     alert("Joined course successfully!");
                     },1000);       
                 }
-<<<<<<< HEAD
-<<<<<<< HEAD
                 else if(data['statusCode'] == 401){ 
                     console.log(data['status'], data);
                     setTimeout(function(){
@@ -84,16 +82,12 @@ $(document).ready(function(){
                     },1000);       
                 }
 
-=======
->>>>>>> parent of e4d8d03 (join course change)
-=======
->>>>>>> parent of e4d8d03 (join course change)
                 
             },
             error: function(data){  
                 console.log("error response:", data);
                 setTimeout(function(){
-                alert("Joined course successfully!");
+                alert("Joined course failed!");
                 },1000);
                 
             }
